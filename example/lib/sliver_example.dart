@@ -14,12 +14,8 @@ class _SliverExampleState extends State<SliverExample> {
     super.initState();
     _rows = List<Widget>.generate(
         50,
-        (int index) => Container(
-            width: double.infinity,
-            child: Align(
-                alignment: Alignment.centerLeft,
-                child:
-                    Text('This is sliver child $index', textScaleFactor: 2))));
+        (int index) =>
+            Container(width: double.infinity, child: Align(alignment: Alignment.centerLeft, child: Text('This is sliver child $index', textScaleFactor: 2))));
   }
 
   @override
@@ -33,26 +29,17 @@ class _SliverExampleState extends State<SliverExample> {
 
     // Make sure there is a scroll controller attached to the scroll view that contains ReorderableSliverList.
     // Otherwise an error will be thrown.
-    ScrollController _scrollController =
-        PrimaryScrollController.maybeOf(context) ?? ScrollController();
-
+    ScrollController _scrollController = PrimaryScrollController.maybeOf(context) ?? ScrollController();
+    final padding = MediaQuery.paddingOf(context);
+    print('sliverExamplePadding: $padding');
     return CustomScrollView(
       // A ScrollController must be included in CustomScrollView, otherwise
       // ReorderableSliverList wouldn't work
       controller: _scrollController,
       slivers: <Widget>[
-        SliverAppBar(
-          expandedHeight: 210.0,
-          flexibleSpace: FlexibleSpaceBar(
-            title: Text('ReorderableSliverList'),
-            background: Image.network(
-                'https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Yushan'
-                '_main_east_peak%2BHuang_Chung_Yu%E9%BB%83%E4%B8%AD%E4%BD%91%2B'
-                '9030.png/640px-Yushan_main_east_peak%2BHuang_Chung_Yu%E9%BB%83'
-                '%E4%B8%AD%E4%BD%91%2B9030.png'),
-          ),
-        ),
+        SliverPadding(padding: EdgeInsets.only(top: padding.top)),
         ReorderableSliverList(
+          scrollOffsetMargin: EdgeInsets.only(top: padding.top + kToolbarHeight, bottom: padding.bottom),
           delegate: ReorderableSliverChildListDelegate(_rows),
           // or use ReorderableSliverChildBuilderDelegate if needed
 //          delegate: ReorderableSliverChildBuilderDelegate(
@@ -62,14 +49,13 @@ class _SliverExampleState extends State<SliverExample> {
           onReorder: _onReorder,
           onNoReorder: (int index) {
             //this callback is optional
-            debugPrint(
-                '${DateTime.now().toString().substring(5, 22)} reorder cancelled. index:$index');
+            debugPrint('${DateTime.now().toString().substring(5, 22)} reorder cancelled. index:$index');
           },
           onReorderStarted: (int index) {
-            debugPrint(
-                '${DateTime.now().toString().substring(5, 22)} reorder started. index:$index');
+            debugPrint('${DateTime.now().toString().substring(5, 22)} reorder started. index:$index');
           },
-        )
+        ),
+        SliverPadding(padding: EdgeInsets.only(top: padding.bottom)),
       ],
     );
   }

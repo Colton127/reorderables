@@ -55,7 +55,10 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
@@ -69,35 +72,13 @@ class _MyHomePageState extends State<MyHomePage> {
         // this will be set when a new tab is tapped
 //        type: BottomNavigationBarType.fixed,
         items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.grid_on, color: _bottomNavigationColor),
-              tooltip: "ReorderableTable",
-              label: "Table"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.apps, color: _bottomNavigationColor),
-              tooltip: "ReorderableWrap",
-              label: "Wrap"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.view_quilt, color: _bottomNavigationColor),
-              tooltip: 'Nested ReroderableWrap',
-              label: "Nested"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.more_vert, color: _bottomNavigationColor),
-              tooltip: "ReorderableColumn 1",
-              label: "Column 1"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.more_vert, color: _bottomNavigationColor),
-              tooltip: "ReroderableColumn 2",
-              label: "Column 2"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.more_horiz, color: _bottomNavigationColor),
-              tooltip: "ReorderableRow",
-              label: "Row"),
-          BottomNavigationBarItem(
-              icon:
-                  Icon(Icons.calendar_view_day, color: _bottomNavigationColor),
-              tooltip: "ReroderableSliverList",
-              label: "SliverList"),
+          BottomNavigationBarItem(icon: Icon(Icons.grid_on, color: _bottomNavigationColor), tooltip: "ReorderableTable", label: "Table"),
+          BottomNavigationBarItem(icon: Icon(Icons.apps, color: _bottomNavigationColor), tooltip: "ReorderableWrap", label: "Wrap"),
+          BottomNavigationBarItem(icon: Icon(Icons.view_quilt, color: _bottomNavigationColor), tooltip: 'Nested ReroderableWrap', label: "Nested"),
+          BottomNavigationBarItem(icon: Icon(Icons.more_vert, color: _bottomNavigationColor), tooltip: "ReorderableColumn 1", label: "Column 1"),
+          BottomNavigationBarItem(icon: Icon(Icons.more_vert, color: _bottomNavigationColor), tooltip: "ReroderableColumn 2", label: "Column 2"),
+          BottomNavigationBarItem(icon: Icon(Icons.more_horiz, color: _bottomNavigationColor), tooltip: "ReorderableRow", label: "Row"),
+          BottomNavigationBarItem(icon: Icon(Icons.calendar_view_day, color: _bottomNavigationColor), tooltip: "ReroderableSliverList", label: "SliverList"),
         ],
         onTap: (int index) {
           setState(() {
