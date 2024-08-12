@@ -496,7 +496,7 @@ class _ReorderableSliverListState extends State<ReorderableSliverList>
 
   // Scrolls to a target context if that context is not on the screen.
   void _scrollTo(BuildContext context) {
-    if (_scrolling) return;
+    if (_scrolling || !_scrollController.hasClients) return;
     final RenderObject contextObject = context.findRenderObject()!;
     final RenderAbstractViewport viewport =
         RenderAbstractViewport.of(contextObject);
