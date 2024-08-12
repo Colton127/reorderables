@@ -496,6 +496,11 @@ class _ReorderableSliverListState extends State<ReorderableSliverList>
 
   // Scrolls to a target context if that context is not on the screen.
   void _scrollTo(BuildContext context) {
+        assert(
+        _scrollController.hasClients,
+        'An attached scroll controller is needed. '
+        'You probably forgot to attach one to the parent scroll view that contains this reorderable list.');
+
     if (_scrolling || !_scrollController.hasClients) return;
     final RenderObject contextObject = context.findRenderObject()!;
     final RenderAbstractViewport viewport =
@@ -514,10 +519,6 @@ class _ReorderableSliverListState extends State<ReorderableSliverList>
 //    final double margin = widget.direction == Axis.horizontal ? _dropAreaSize.width : _dropAreaSize.height;
     final double margin = _dropAreaSize.height / 2;
 
-    assert(
-        _scrollController.hasClients,
-        'An attached scroll controller is needed. '
-        'You probably forgot to attach one to the parent scroll view that contains this reorderable list.');
 
     final double scrollOffset = _scrollController.offset;
     final double topOffset = max(
