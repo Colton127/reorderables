@@ -527,6 +527,7 @@ class _ReorderableSliverListState extends State<ReorderableSliverList> with Tick
         curve: Curves.easeInOut,
       )
           .then((void value) {
+        if (!mounted) return;
         setState(() {
           _scrolling = false;
         });

@@ -390,6 +390,7 @@ class _ReorderableFlexContentState extends State<_ReorderableFlexContent> with T
           curve: Curves.easeInOut,
         )
             .then((void value) {
+          if (!mounted) return;
           setState(() {
             _scrolling = false;
           });
