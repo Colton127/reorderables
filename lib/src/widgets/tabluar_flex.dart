@@ -47,8 +47,7 @@ class TabluarFlex extends Flex {
   }
 
   @override
-  void updateRenderObject(
-      BuildContext context, RenderTabluarFlex renderObject) {
+  void updateRenderObject(BuildContext context, RenderTabluarFlex renderObject) {
     renderObject
       ..direction = direction
       ..mainAxisAlignment = mainAxisAlignment

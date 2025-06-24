@@ -481,7 +481,7 @@ class _ReorderableSliverListState extends State<ReorderableSliverList> with Tick
 
   // Scrolls to a target context if that context is not on the screen.
   void _scrollTo(BuildContext context) {
-        assert(
+    assert(
         _scrollController.hasClients,
         'An attached scroll controller is needed. '
         'You probably forgot to attach one to the parent scroll view that contains this reorderable list.');
@@ -502,7 +502,6 @@ class _ReorderableSliverListState extends State<ReorderableSliverList> with Tick
     // screen, then it is already on-screen.
 //    final double margin = widget.direction == Axis.horizontal ? _dropAreaSize.width : _dropAreaSize.height;
     final double margin = _dropAreaSize.height / 2;
-
 
     final double scrollOffset = _scrollController.offset;
     final double topOffset = max(
@@ -610,6 +609,7 @@ class _ReorderableSliverListState extends State<ReorderableSliverList> with Tick
 
     // Drops toWrap into the last position it was hovering over.
     void onDragEnded() {
+      if (!mounted) return;
 //      reorder(_dragStartIndex, _currentIndex);
       if (widget.onDragEnd != null) widget.onDragEnd!();
       this.setState(() {
@@ -652,7 +652,7 @@ class _ReorderableSliverListState extends State<ReorderableSliverList> with Tick
       // before index+2, which is after the space at index+1.
       void moveAfter() => reorder(index, index + 2);
 
-      final MaterialLocalizations localizations = MaterialLocalizations.of(context);
+      final localizations = WidgetsLocalizations.of(context);
 
       if (index > 0) {
         semanticsActions[CustomSemanticsAction(label: localizations.reorderItemToStart)] = moveToStart;
@@ -820,8 +820,8 @@ class _ReorderableSliverListState extends State<ReorderableSliverList> with Tick
     return Builder(builder: (BuildContext context) {
       Widget dragTarget = DragTarget<int>(
         builder: buildDragTarget,
-        onWillAccept: (int? toAccept) {
-          bool willAccept = _dragStartIndex == toAccept && toAccept != index;
+        onWillAcceptWithDetails: (dragTargetDetails) {
+          bool willAccept = _dragStartIndex == dragTargetDetails.data && dragTargetDetails.data != index;
 //          debugPrint('${DateTime.now().toString().substring(5, 22)} reorderable_sliver.dart(679) $this._statefulWrap: '
 //            'onWillAccept: toAccept:$toAccept return:$willAccept _nextIndex:$_nextIndex index:$index _currentIndex:$_currentIndex _dragStartIndex:$_dragStartIndex');
 
@@ -848,7 +848,6 @@ class _ReorderableSliverListState extends State<ReorderableSliverList> with Tick
           // If the target is not the original starting point, then we will accept the drop.
           return willAccept; //_dragging == toAccept && toAccept != toWrap.key;
         },
-        onAccept: (int accepted) {},
         onLeave: (Object? leaving) {},
       );
 
